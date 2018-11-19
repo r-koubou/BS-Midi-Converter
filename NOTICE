@@ -1,0 +1,3 @@
+This software depends following libraries to work.
+- pretty_midi
+- clipboard
