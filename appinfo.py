@@ -1,8 +1,13 @@
 # coding: utf-8
+APPNAME     = 'BS Midi Converter'
+AUTHOR      = 'R-Koubou'
+VERSION     = '0.0.1'
+URL         = 'https://github.com/r-koubou/BS-Midi-Converter'
+DESCRIPTION = 'Advanced Midi Converter for Beat Saber'
+EXECUTABLE  = 'BSMConverter'
 
-VERSION             = '0.0.1'
-AUTHOR              = 'NAME'
-MAIN_SCRIPT         = 'main.py'
-EXECUTABLE_NAME     = 'executable'
-DESCRIPTION         = "Application's description"
-URL                 = "https://example.com"
+VERSION_0_0_1    = 0x000010
+VERSION_NUMBER = VERSION_0_0_1
+
+if __name__ == '__main__':
+    print( VERSION )

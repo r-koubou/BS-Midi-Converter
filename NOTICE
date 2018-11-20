@@ -1,3 +1,7 @@
 This software depends following libraries to work.
-- pretty_midi
-- clipboard
+
+pretty_midi
+https://pypi.org/project/pretty_midi/
+
+clipboard
+https://pypi.org/project/clipboard/

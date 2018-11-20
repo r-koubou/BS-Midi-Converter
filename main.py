@@ -1,9 +1,11 @@
-# conding: utf-8
+# coding: utf-8
 import json
 import sys
 
 import pretty_midi
 import clipboard
+
+import appinfo
 
 TEMPLATE_BODY = {
     "_version": "1.5.0",
@@ -57,9 +59,9 @@ def to_line_layer( note ):
     #   |         *          |
     #   *         |          |
     vel = note.velocity
-    if( vel < 42 ):
+    if( vel <= 42 ):
         return 0
-    elif( vel < 83 ):
+    elif( vel <= 83 ):
         return 1
     else:
         return 2
@@ -101,26 +103,47 @@ def to_line_cut_direction( note ):
         # invalid
         return 0
 
+# CC2 Value to "_type" value
+def to_beat_type( cc2 ):
+    # CC2: Beat type
+    # 0-31:  Red(0)
+    # 32-63: Blue(1)
+    # 64-96: Bomb(2)
+    cc2Value = cc2.value
+    if( cc2Value <= 31 ):
+        return 0
+    elif( cc2Value <= 63 ):
+        return 1
+    elif( cc2Value <= 96 ):
+        return 2
+    else:
+        # invalid
+        return 0
 
 # main
-def main():
-    midi = pretty_midi.PrettyMIDI( sys.argv[1] )
+def main( argv ):
+    midi = pretty_midi.PrettyMIDI( argv[ 0 ] )
     midi_tracks = midi.instruments
     bpm =  midi.estimate_tempo()
     score = TEMPLATE_BODY.copy()
     score[ "_beatsPerMinute" ] = bpm
 
-    for i, t in enumerate( midi_tracks ):
+    for t in midi_tracks:
+        ccList    = t.control_changes
+        beat_type = 0
+        for cc in ccList:
+            beat_type = to_beat_type( cc )
+            break
+
         for note in t.notes:
             # note.start: Note On time (sec)
             # note.pitch: Note No
             # note.velocity: Velocity
             n = TEMPLATE_NOTE.copy()
 
-            # MIDI track 1: Red
-            # MIDI track 2: Blue
-            n[ "_type" ]            = i
-
+            # MIDI track 1(i==0): Red
+            # MIDI track 2(i==1): Blue
+            n[ "_type" ]            = beat_type
             n[ "_time" ]            = (bpm/60)*note.start
             n[ "_lineIndex" ]       = to_line_index( note )
             n[ "_lineLayer" ]       = to_line_layer( note )
@@ -130,5 +153,31 @@ def main():
 
     clipboard.copy( json.dumps( score, indent=4 ) )
 
+def usage():
+    USAGE = """
+{appname} by {author} ({url})
+
+{description}
+
+    1: Run from python
+        ** Call setup-venv.bat, setup-libs.bat once to execute **
+        python main.py <midifile>
+
+    2: Run from exe
+        {executable}.exe <midifile>
+        or
+        Drag & Drop a midi file to {executable}.exe""".format(
+        appname=appinfo.APPNAME,
+        author=appinfo.AUTHOR,
+        url=appinfo.URL,
+        description=appinfo.DESCRIPTION,
+        executable=appinfo.EXECUTABLE
+    )
+
+    print( USAGE )
+
 if __name__ == "__main__":
-    main()
+    if( len( sys.argv ) == 1 ):
+        usage()
+    else:
+        main( sys.argv[1:] )
