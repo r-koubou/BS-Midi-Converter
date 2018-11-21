@@ -108,14 +108,14 @@ def to_beat_type( cc2 ):
     # CC2: Beat type
     # 0-31:  Red(0)
     # 32-63: Blue(1)
-    # 64-96: Bomb(2)
+    # 64-96: Bomb(3)
     cc2Value = cc2.value
     if( cc2Value <= 31 ):
         return 0
     elif( cc2Value <= 63 ):
         return 1
     elif( cc2Value <= 96 ):
-        return 2
+        return 3
     else:
         # invalid
         return 0
@@ -131,18 +131,20 @@ def main( argv ):
     for t in midi_tracks:
         ccList    = t.control_changes
         beat_type = 0
-        for cc in ccList:
-            beat_type = to_beat_type( cc )
-            break
 
+        # Detect a beat type from track
+        for cc in ccList:
+            if( cc.number == 2 ):
+                beat_type = to_beat_type( cc )
+                break
+
+        # note.start: Note On time (sec)
+        # note.pitch: Note No
+        # note.velocity: Velocity
         for note in t.notes:
-            # note.start: Note On time (sec)
-            # note.pitch: Note No
-            # note.velocity: Velocity
+
             n = TEMPLATE_NOTE.copy()
 
-            # MIDI track 1(i==0): Red
-            # MIDI track 2(i==1): Blue
             n[ "_type" ]            = beat_type
             n[ "_time" ]            = (bpm/60)*note.start
             n[ "_lineIndex" ]       = to_line_index( note )

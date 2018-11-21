@@ -1,7 +1,7 @@
 # coding: utf-8
 APPNAME     = 'BS Midi Converter'
 AUTHOR      = 'R-Koubou'
-VERSION     = '0.0.1'
+VERSION     = '0.0.2'
 URL         = 'https://github.com/r-koubou/BS-Midi-Converter'
 DESCRIPTION = 'Advanced Midi Converter for Beat Saber'
 EXECUTABLE  = 'BSMConverter'
