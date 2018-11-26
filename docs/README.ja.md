@@ -12,13 +12,15 @@
 
 `python main.py <midifile>`
 
-2: exe形式から実行する(ZIPファイルを添付しています。 : 64bit OS のみ)
+2: exe形式から実行する[(ダウンロード： 64bit Windows OS のみ)](https://github.com/r-koubou/BS-Midi-Converter/releases/latest)
 
 `BSMConverter.exe <midifile>`
 
 or
 
 `midiファイルをBSMConverter.exeへドラッグ・アンド・ドロップする`
+
+![](assets/dnd.gif)
 
 **正常に変換できた場合はクリップボードにJSON形式のテキストがコピーされます**
 
@@ -88,3 +90,8 @@ DAW (Cubase, Studio One, Logic, etc.)の使用を想定しています。
 6. SMFでエクスポート (ティック解像度は480推奨)
 7. 変換
 8. 外部の Beat Saber エディタでチェック (e.g.: EditSaber)
+
+
+### 例： Cubase
+
+![](assets/eg_cubase.png)

@@ -4,3 +4,7 @@
 
 - [English](docs/README.md)
 - [日本語](docs/README.ja.md)
+
+## Download
+
+[Latest Version](https://github.com/r-koubou/BS-Midi-Converter/releases/latest)

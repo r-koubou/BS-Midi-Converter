@@ -12,13 +12,15 @@ You need to read a program code or understand following to use.
 
 `python main.py <midifile>`
 
-2: Run from exe (Attached : 64bit OS Only)
+2: Run from exe [(Download : 64bit Windows OS Only)](https://github.com/r-koubou/BS-Midi-Converter/releases/latest)
 
 `BSMConverter.exe <midifile>`
 
 or
 
 Drag & Drop a midi file to BSMConverter.exe
+
+![](assets/dnd.gif)
 
 **If no problem, json data will copy to clipboard.**
 
@@ -90,3 +92,7 @@ On DAW (Cubase, Studio One, Logic, etc.)
 6. Export SMF (Recomend Time Resolution:480)
 7. Convert!
 8. Check on external Beat Saber Editor (e.g.: EditSaber)
+
+### e.g. Cubase
+
+![](assets/eg_cubase.png)
