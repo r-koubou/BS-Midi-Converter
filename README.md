@@ -1,4 +1,4 @@
-# Advanced converter to Beam Saber's music score from MIDI file
+# Advanced converter to Beat Saber's music score from MIDI file
 
 ## Manual
 
